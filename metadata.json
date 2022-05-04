@@ -1,0 +1,9 @@
+{
+    "entry": "Index.js",
+    "name":"Hypixel Skyblock Custom",
+    "description": "A bunch of QOL features for Hypixel Skyblock!",
+    "creator": "Edemarz#0001, Intel#1563",
+    "requires": ["Vigilance","SettingsManager", "RichPresence", "sleep", "PromiseV2", "PogData"],
+    "version": "0.0.0",
+    "$schema": "../CTAutocomplete-2.0.4/metadata.json"
+}
