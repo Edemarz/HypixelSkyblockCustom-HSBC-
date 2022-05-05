@@ -12,7 +12,7 @@ function run({ args, chat }) {
     const storageLength = Storage.messages.length;
 
     if (index > storageLength) return chat.chat(`&6[HSBC]&r&c You cannot copy that message since it is more than how much message HSBC has stored!`);
-    const message = Storage.messages[Storage.messages.length - 1];
+    const message = Storage.messages[Storage.messages.length - index];
 
     if (!message) return chat.chat(`&6[HSBC]&r&c You cannot copy that message since it is more than how much message HSBC has stored!`);
     chat.say(ChatLib.removeFormatting(message));
