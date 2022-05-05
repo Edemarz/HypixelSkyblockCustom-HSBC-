@@ -43,7 +43,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Render Vanilla Health Bar",
-        description: "Toggle wether or not to render the vanilla health bar.",
+        description: "Toggle whether or not to render the vanilla health bar.",
         category: "QOL",
         subcategory: "Rendering"
     })
@@ -51,7 +51,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Render Vanilla XP Bar",
-        description: "Toggle wether or not to render the vanilla xp bar.",
+        description: "Toggle whether or not to render the vanilla xp bar.",
         category: "QOL",
         subcategory: "Rendering"
     })
@@ -59,7 +59,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Render Vanilla Armor Bar",
-        description: "Toggle wether or not to render the vanilla armor bar.",
+        description: "Toggle whether or not to render the vanilla armor bar.",
         category: "QOL",
         subcategory: "Rendering"
     })
@@ -67,11 +67,19 @@ class Settings {
 
     @SwitchProperty({
         name: "Render Vanilla Food Bar",
-        description: "Toggle wether or not to render the vanilla food bar.",
+        description: "Toggle whether or not to render the vanilla food bar.",
         category: "QOL",
         subcategory: "Rendering"
     })
     renderFoodBar = true;
+
+    @SwitchProperty({
+        name: "Render Scoreboard",
+        description: "Toggle whether or not to render the scoreboard.",
+        category: "QOL",
+        subcategory: "Rendering"
+    })
+    renderScoreboard = true;
 
     @SwitchProperty({
         name: "Mining Speed Boost Alert",
@@ -144,7 +152,7 @@ class Settings {
     @SwitchProperty({
         name: "No Particles",
         description: "Removes all particles from your game!",
-        category: "Hacks"
+        category: "QOL"
     })
     noParticle = false;
 

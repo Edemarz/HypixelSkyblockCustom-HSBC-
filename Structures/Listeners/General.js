@@ -5,6 +5,11 @@ import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
 import { checkLockedBind } from "../Features/LockBind/lockBind";
 import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
+let slayer = {
+    start: false,
+    end: false,
+    last: false
+}
 let cooldowns = {
     lowHealth: false
 };
@@ -74,6 +79,10 @@ register("renderArmor", (args) => {
 
 register("renderFood", (args) => {
     if (!Configuration.renderFoodBar) cancel(args);
+});
+
+register("renderScoreboard", (args) => {
+    if (!Configuration.renderScoreboard) cancel(args);
 });
 
 //Power orb place listener

@@ -1,15 +1,11 @@
-import PogData from "PogData";
-
-const LockBindStatus = new PogData("HypixelSkyblockCustom", {
-    lockedBinds: [false, false, false, false, false, false, false, false, false]
-});
+import { Storage } from "../../Handlers/StorageHandler";
 
 function changeLockBindStatus() {
     const index = Number(Player.getHeldItemIndex());
 
-    LockBindStatus.lockedBinds[index] = LockBindStatus.lockedBinds[index] ? false : true;
-    LockBindStatus.save();
-    ChatLib.chat(`&6[HSBC]&a The slot ${index} has been ${LockBindStatus.lockedBinds[index] === true ? '&r&clocked&r&a' : 'unlocked'}.&r`)
+    Storage.lockedBinds[index] = Storage.lockedBinds[index] ? false : true;
+    Storage.save();
+    ChatLib.chat(`&6[HSBC]&a The slot ${index} has been ${Storage.lockedBinds[index] === true ? '&r&clocked&r&a' : 'unlocked'}.&r`)
 };
 
-export { LockBindStatus, changeLockBindStatus };
+export { changeLockBindStatus };

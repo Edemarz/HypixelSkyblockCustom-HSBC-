@@ -8,6 +8,7 @@ const pickaxeNames = [
     "drill"
 ];
 import { C08PacketPlayerBlockPlacement, BP } from "../Constants/Packets";
+import { Storage } from "../Handlers/StorageHandler";
 
 register("chat", (api_key) => {
     ChatLib.chat(`&6[HSBC]&r&e HSBC has updated your API key configuration to:&r&b ${api_key}`);
@@ -54,8 +55,13 @@ register("chat", () => {
 }).setCriteria("Your Mining Speed Boost has expired!").setExact();
 
 register("chat", () => {
-    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 40, 2)
+    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 100, 2)
 }).setCriteria("Your Hitshield have broken! Your Voidling's Stronghold Buff is now active for the next 20 seconds!").setExact();
+
+register("chat", (msg) => {
+    Storage.messages.push(msg);
+    Storage.save();
+}).setCriteria("${msg}");
 
 // register("command", (args) => {
     

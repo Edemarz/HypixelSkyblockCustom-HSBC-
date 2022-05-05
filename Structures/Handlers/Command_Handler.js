@@ -1,6 +1,7 @@
 const commandList = [
     "hsbc",
-    "playerstats"
+    "playerstats",
+    "copy"
 ];
 
 commandList.forEach((command) => {
