@@ -53,6 +53,10 @@ register("chat", () => {
     if (alreadyUsed) alreadyUsed = false;
 }).setCriteria("Your Mining Speed Boost has expired!").setExact();
 
+register("chat", () => {
+    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 40, 2)
+}).setCriteria("Your Hitshield have broken! Your Voidling's Stronghold Buff is now active for the next 20 seconds!").setExact();
+
 // register("command", (args) => {
     
 // }).setName("test");

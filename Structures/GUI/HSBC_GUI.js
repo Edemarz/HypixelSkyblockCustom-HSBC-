@@ -158,8 +158,7 @@ class Settings {
     @SwitchProperty({
         name: "Better Shortbow",
         description: "Removes the bow pullback from bows that have the Shortbow ability such as &cTerminator&r and &6Juju Bow&r.",
-        category: "QOL",
-        subcategory: "SkySim"
+        category: "SkySim"
     })
     betterShortbow = true;
 
@@ -179,6 +178,13 @@ class Settings {
     })
     playerNametag = `${Player.getName()}`;
 
+    @SwitchProperty({
+        name: "Voidgloom's Stronghold Alert",
+        description: "Alerts you when your Voidgloom's Stronghold Hitshield has broken!",
+        category: "SkySim"
+    })
+    strongholdAlert = true;
+
     constructor() {
         //Initializing
         this.initialize(this);
@@ -194,11 +200,11 @@ class Settings {
         this.setCategoryDescription("Alerts", "Features listed under here are alerts such as alerting you when you can use your &6Mining Speed Boost&r again.");
         this.setCategoryDescription("Ghost Blocks", "Features listed under here can create ghost blocks to make it easier to stonk through blocks.");
         this.setCategoryDescription("Chat Formatting", "Change how specific messages is formatted.");
+        this.setCategoryDescription("SkySim", "A special subcategory where features for the server &6SkySim&r is listed.")
         //Setting subcategories
         this.setSubcategoryDescription("QOL", "Rendering", "");
         this.setSubcategoryDescription("QOL", "Inventory", "");
         this.setSubcategoryDescription("QOL", "Messages", "");
-        this.setSubcategoryDescription("QOL", "SkySim", "A special subcategory where features for the server &6SkySim&r is listed.");
         this.setSubcategoryDescription("Chat Formatting", "Guild", "");
     };
 };
