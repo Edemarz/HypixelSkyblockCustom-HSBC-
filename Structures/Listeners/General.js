@@ -139,8 +139,6 @@ register("dropItem", (event) => {
 
 register("tick", () => {
     const playerHealth = Player.getHP();
-
-    ChatLib.chat(playerHealth);
     if (playerHealth < 10 && Configuration.lowHealthAlert) {
         if (cooldowns.lowHealth) return;
         Client.showTitle("&cYou're low on health!", "", 2, 40, 2);
