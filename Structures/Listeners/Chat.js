@@ -63,6 +63,26 @@ register("chat", (msg) => {
     Storage.save();
 }).setCriteria("${msg}");
 
+register("chat", (drop, magicFind) => {
+    if (!Configuration.autoRareDrops) return;
+    ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`))
+}).setCriteria("RARE DROP! ${drop} ${magicFind}").setExact();
+
+register("chat", (drop, magicFind) => {
+    if (!Configuration.autoRareDrops) return;
+    ChatLib.say(ChatLib.removeFormatting(`VERY RARE DROP! ${drop} ${magicFind}`))
+}).setCriteria("VERY RARE DROP! ${drop} ${magicFind}").setExact();
+
+register("chat", (drop, magicFind) => {
+    if (!Configuration.autoRareDrops) return;
+    ChatLib.say(ChatLib.removeFormatting(`CRAZY RARE DROP! ${drop} ${magicFind}`))
+}).setCriteria("CRAZY RARE DROP! ${drop} ${magicFind}").setExact();
+
+register("chat", (drop, magicFind) => {
+    if (!Configuration.autoRareDrops) return;
+    ChatLib.say(ChatLib.removeFormatting(`INSANE RARE DROP! ${drop} ${magicFind}`))
+}).setCriteria("INSANE RARE DROP! ${drop} ${magicFind}").setExact();
+
 // register("command", (args) => {
     
 // }).setName("test");

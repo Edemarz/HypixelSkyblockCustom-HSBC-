@@ -193,6 +193,13 @@ class Settings {
     })
     strongholdAlert = true;
 
+    @SwitchProperty({
+        name: "Auto Broadcast Rare Drops",
+        description: "Automatically broadcast rare drops.",
+        category: "QOL"
+    })
+    autoRareDrops = true;
+
     constructor() {
         //Initializing
         this.initialize(this);
