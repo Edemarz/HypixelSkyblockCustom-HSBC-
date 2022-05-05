@@ -4,7 +4,7 @@ import { stonkGhostBlockPlayerInteract, stonkGhostBlocksTick } from "../Features
 import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
 import { checkLockedBind } from "../Features/LockBind/lockBind";
-import { ParticlePacket } from "../Constants/Packets";
+import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
 let cooldowns = {
     lowHealth: false
 };
@@ -42,7 +42,7 @@ register("worldLoad", () => {
     };  
 
     if (!sentWelcome) {
-        ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features.\n&6--------------------------&r`)
+        ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features.\n&6--------------------------&r`);
         sentWelcome = true;
     };
 });
@@ -147,5 +147,15 @@ register("tick", () => {
         setTimeout(() => {
             cooldowns.lowHealth = false;
         }, 5000);
+    };
+
+    Player.setTabDisplayName(new TextComponent(!Configuration.tabName ? 'None' : Configuration.tabName));
+    Player.setNametagName(new TextComponent(!Configuration.playerNametag ? 'None' : Configuration.playerNametag));
+});
+
+register("playerInteract", (action, pos, event) => {
+    if (Configuration.betterShortbow && (Player.getHeldItem()?.getName()?.removeFormatting()?.includes("Terminator") || Player.getHeldItem()?.getName()?.removeFormatting()?.includes("Juju"))) {
+        Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(Player.getHeldItemIndex()).getItemStack(), 0, 0, 0));
+        cancel(event);
     };
 });

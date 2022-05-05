@@ -150,10 +150,34 @@ class Settings {
 
     @SwitchProperty({
         name: "Low Health Alert",
-        description: "Alerts you when you're low on health or you're health is below 25%!",
+        description: "&rAlerts you when you're low on health or you're health is below 25%!",
         category: "Alerts"
     })
     lowHealthAlert = true;
+
+    @SwitchProperty({
+        name: "Better Shortbow",
+        description: "Removes the bow pullback from bows that have the Shortbow ability such as &cTerminator&r and &6Juju Bow&r.",
+        category: "QOL",
+        subcategory: "SkySim"
+    })
+    betterShortbow = true;
+
+    @TextProperty({
+        name: "Player Tablist Name",
+        description: "Changes your tablist name to whatever you desire!",
+        category: "Miscellanious",
+        placeholder: `${Player.getName()}`
+    })
+    tabName = `${Player.getName()}`;
+
+    @TextProperty({
+        name: "Player Nametag",
+        description: "Changes your nametag to whatever you desire!",
+        category: "Miscellanious",
+        placeholder: `${Player.getName()}`
+    })
+    playerNametag = `${Player.getName()}`;
 
     constructor() {
         //Initializing
@@ -174,6 +198,7 @@ class Settings {
         this.setSubcategoryDescription("QOL", "Rendering", "");
         this.setSubcategoryDescription("QOL", "Inventory", "");
         this.setSubcategoryDescription("QOL", "Messages", "");
+        this.setSubcategoryDescription("QOL", "SkySim", "A special subcategory where features for the server &6SkySim&r is listed.");
         this.setSubcategoryDescription("Chat Formatting", "Guild", "");
     };
 };
