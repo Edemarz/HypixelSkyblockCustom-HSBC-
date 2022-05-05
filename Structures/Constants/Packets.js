@@ -1,4 +1,5 @@
 const S12KnockbackPacket = Java.type("net.minecraft.network.play.server.S12PacketEntityVelocity");
+const ParticlePacket = Java.type("net.minecraft.network.play.server.S2APacketParticles");
 const Minecraft = Client.getMinecraft();
 const Prefix = "&r&6[HSBC]&r";
 const C08PacketPlayerBlockPlacement = Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement");
@@ -35,6 +36,7 @@ const Ranks = [
 
 export {
     S12KnockbackPacket,
+    ParticlePacket,
     Minecraft,
     Prefix,
     C08PacketPlayerBlockPlacement,

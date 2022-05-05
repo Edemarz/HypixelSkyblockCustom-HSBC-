@@ -141,6 +141,20 @@ class Settings {
     })
     guildMessageFormat = '&2Guild > {rank} {name} {guildRank}: {message}';
 
+    @SwitchProperty({
+        name: "No Particles",
+        description: "Removes all particles from your game!",
+        category: "Hacks"
+    })
+    noParticle = false;
+
+    @SwitchProperty({
+        name: "Low Health Alert",
+        description: "Alerts you when you're low on health or you're health is below 25%!",
+        category: "Alerts"
+    })
+    lowHealthAlert = true;
+
     constructor() {
         //Initializing
         this.initialize(this);

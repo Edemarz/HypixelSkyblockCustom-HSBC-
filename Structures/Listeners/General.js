@@ -4,6 +4,10 @@ import { stonkGhostBlockPlayerInteract, stonkGhostBlocksTick } from "../Features
 import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
 import { checkLockedBind } from "../Features/LockBind/lockBind";
+import { ParticlePacket } from "../Constants/Packets";
+let cooldowns = {
+    lowHealth: false
+};
 //Declaring
 let AlreadyObtained = false;
 let sentWelcome = false;
@@ -48,7 +52,11 @@ register("packetReceived", (packet, event) => {
     //Anti KB Packet Cancelller
     if (packet.class?.getSimpleName() == 'S12PacketEntityVelocity' && Configuration.antiKB) {
         //Cancels the Knockback Packet so the player doesn't take Knockback
-        cancel(event)
+        cancel(event);
+    };
+
+    if (packet.class?.getSimpleName() ==  "S2APacketParticles" && Configuration.noParticle) {
+        cancel(event);
     };
 });
 
@@ -127,4 +135,19 @@ register("step", () => {
 //Slot locking
 register("dropItem", (event) => {
     checkLockedBind(event);
+});
+
+register("tick", () => {
+    const playerHealth = Player.getHP();
+
+    ChatLib.chat(playerHealth);
+    if (playerHealth < 10 && Configuration.lowHealthAlert) {
+        if (cooldowns.lowHealth) return;
+        Client.showTitle("&cYou're low on health!", "", 2, 40, 2);
+        World.playSound("random.orb", 100.0, 0);
+        cooldowns.lowHealth = true;
+        setTimeout(() => {
+            cooldowns.lowHealth = false;
+        }, 5000);
+    };
 });
