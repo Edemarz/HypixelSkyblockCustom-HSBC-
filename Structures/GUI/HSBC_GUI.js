@@ -74,6 +74,22 @@ class Settings {
     renderFoodBar = true;
 
     @SwitchProperty({
+        name: "Render Crosshair",
+        description: "Toggle whether or not to render the crosshair.",
+        category: "QOL",
+        subcategory: "Rendering"
+    })
+    renderCrosshair = true;
+
+    @SwitchProperty({
+        name: "Render Entities",
+        description: "Toggle whether or not to render the entities around you.",
+        category: "QOL",
+        subcategory: "Rendering"
+    })
+    renderEntities = true;
+
+    @SwitchProperty({
         name: "Render Scoreboard",
         description: "Toggle whether or not to render the scoreboard.",
         category: "QOL",

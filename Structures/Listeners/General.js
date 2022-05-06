@@ -81,6 +81,14 @@ register("renderFood", (args) => {
     if (!Configuration.renderFoodBar) cancel(args);
 });
 
+register("renderCrosshair", (args) => {
+    if (!Configuration.renderCrosshair) cancel(args);
+});
+
+register("renderEntity", (args) => {
+    if (!Configuration.renderEntities) cancel(args);
+});
+
 register("renderScoreboard", (args) => {
     if (!Configuration.renderScoreboard) cancel(args);
 });
