@@ -46,6 +46,10 @@ register("chat", (event) => {
     if (Configuration.hideBlocksInTheWay) cancel(event);
 }).setCriteria("There are blocks in the way!").setExact();
 
+register("chat", (event) => {
+    if (Configuration.hideBlocksInTheWay) cancel(event);
+}).setCriteria("There're blocks in the way!").setExact();
+
 register("chat", () => {
     if (!alreadyUsed) alreadyUsed = true;
 }).setCriteria("You used your Mining Speed Boost Pickaxe Ability!").setExact();

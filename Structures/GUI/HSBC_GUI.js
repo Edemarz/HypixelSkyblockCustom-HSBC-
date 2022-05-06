@@ -12,7 +12,7 @@ import {
 } from "Vigilance";
 import { Storage } from "../Handlers/StorageHandler";
 
-@Vigilant("HSBC", "HSBC", {
+@Vigilant("HypixelSkyblockCustom", "HypixelSkyblockCustom", {
     getCategoryComparator: () => (a, b) => {
         const categories = ["General", "QOL"];
         return categories.indexOf(a.name) - categories.indexOf(b.name);

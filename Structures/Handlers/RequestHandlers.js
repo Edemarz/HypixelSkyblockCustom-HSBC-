@@ -277,7 +277,7 @@ function checkVersion(chat) {
         const numberedCurrentVersion = parseFloat(version);
         if (numberedVersion > numberedCurrentVersion) {
             const msg = new Message(
-                `&6[HSBC]&r&c Your HSBC's mod version is outdated! The current latest version is &l${numberedVersion}&r&c your current version is &l${numberedCurrentVersion}&r&c!\n&r&aClick `,
+                `&6[HSBC]&r&c Your HSBC's mod version is outdated! The current latest version is version &l${numberedVersion}&r&c your current version is version &l${numberedCurrentVersion}&r&c!\n&r&aClick `,
                 new TextComponent('&r&a&lhere&r').setClick("open_url", 'https://github.com/Edemarz/HypixelSkyblockCustom'),
                 ' &r&ato download the latest version!'
             );

@@ -3,7 +3,6 @@ import Configuration from "../GUI/HSBC_GUI";
 import { stonkGhostBlockPlayerInteract, stonkGhostBlocksTick } from "../Features/GhostBlock/StonkGhostBlock";
 import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
-import { checkLockedBind } from "../Features/LockBind/lockBind";
 import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
 import { checkVersion } from "../Handlers/RequestHandlers";
 import { GuiOpenButton, LockBind } from "../Manager/KeybindManager";
@@ -21,6 +20,12 @@ const listOfFunctions = [
     "setSubcategoryDescription",
     "save"
 ];
+
+
+let slayer = {
+    spawned: false,
+    spawnedAt: false
+};
 
 let cooldowns = {
     lowHealth: false
@@ -60,7 +65,7 @@ register("worldLoad", () => {
     checkVersion(ChatLib)
 
     if (!sentWelcome) {
-        ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features.\n&6--------------------------&r`);
+        ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features or do &a/hsbc help&r&7 for all the commands.\n&6--------------------------&r`);
         sentWelcome = true;
     };
 
@@ -195,12 +200,27 @@ register("step", () => {
     if (Configuration.stonkGB) stonkGhostBlocksTick();
 });
 
-//Slot locking
-register("dropItem", (event) => {
-    checkLockedBind(event);
-});
-
 register("tick", () => {
+    try {
+        const scoreboardLine = Scoreboard.getLines()?.length < 2 ? false : Scoreboard.getLineByIndex(2) ? ChatLib.removeFormatting(Scoreboard.getLineByIndex(2)) : false;
+    if (scoreboardLine) {
+        if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) slayer.spawned = true, slayer.spawnedAt = Date.now(), ChatLib.chat("Slayer Spawned!");
+        if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
+            let lastUpdated = Math.round((Date.now() - slayer.spawnedAt) / 1000);
+            slayer.spawned = false;
+            slayer.spawnedAt = false;
+
+            if (lastUpdated > 86400 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 86400) > 1 ? `${Math.round(lastUpdated / 86400)} days` : `${Math.round(lastUpdated / 86400)} day`;
+            else if (lastUpdated > 3600 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 3600) > 1 ? `${Math.round(lastUpdated / 3600)} hours` : `${Math.round(lastUpdated / 3600)} hour`;
+            else if (lastUpdated > 60 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 60) > 1 ? `${Math.round(lastUpdated / 60)} minutes` : `${Math.round(lastUpdated / 60)} minute`;
+            else lastUpdated = lastUpdated > 1 ? `${lastUpdated} seconds` : `${lastUpdated} second`;
+
+
+            ChatLib.chat(`&6[HSBC]&r&a Slayer took ${lastUpdated} to kill.`);
+        };
+    };
+    } catch (err) { ChatLib.chat(`&6[HSBC]&r&c HSBC has ran into an error while calculating slayer kill time: ${JSON.stringify(err)}`); };
+    
     if (GuiOpenButton.isPressed()) GUI.openGUI();
     if (LockBind.isPressed()) changeLockBindStatus();
 
@@ -217,6 +237,10 @@ register("tick", () => {
 
     Player.setTabDisplayName(new TextComponent(!Configuration.tabName ? 'None' : Configuration.tabName));
     Player.setNametagName(new TextComponent(!Configuration.playerNametag ? 'None' : Configuration.playerNametag));
+});
+
+register("attackEntity", () => {
+    
 });
 
 register("playerInteract", (action, pos, event) => {
