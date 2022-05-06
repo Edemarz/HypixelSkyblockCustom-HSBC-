@@ -10,7 +10,10 @@ const pickaxeNames = [
 import { C08PacketPlayerBlockPlacement, BP } from "../Constants/Packets";
 import { Storage } from "../Handlers/StorageHandler";
 let cd = {
-    rareDrops: false
+    rareDrops1: false,
+    rareDrops2: false,
+    rareDrops3: false,
+    rareDrops4: false
 };
 
 register("chat", (api_key) => {
@@ -72,22 +75,58 @@ register("chat", (msg) => {
 
 register("chat", (drop, magicFind) => {
     if (!Configuration.autoRareDrops) return;
-    ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`));
+    if (cd.rareDrops1) setTimeout(() => {
+        ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`));
+    }, cd.rareDrops1);
+    else if (!cd.rareDrops1) {
+        ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`));
+        cd.rareDrops1 = 500;
+        setTimeout(() => {
+            cd.rareDrops1 = false;
+        }, 500);
+    };
 }).setCriteria("RARE DROP! ${drop} ${magicFind}").setExact();
 
 register("chat", (drop, magicFind) => {
     if (!Configuration.autoRareDrops) return;
-    ChatLib.say(ChatLib.removeFormatting(`VERY RARE DROP! ${drop} ${magicFind}`))
+    if (cd.rareDrops2) setTimeout(() => {
+        ChatLib.say(ChatLib.removeFormatting(`VERY RARE DROP! ${drop} ${magicFind}`));
+    }, cd.rareDrops2);
+    else if (!cd.rareDrops2) {
+        ChatLib.say(ChatLib.removeFormatting(`VERY RARE DROP! ${drop} ${magicFind}`));
+        cd.rareDrops2 = 500;
+        setTimeout(() => {
+            cd.rareDrops2 = false;
+        }, 500);
+    };
 }).setCriteria("VERY RARE DROP! ${drop} ${magicFind}").setExact();
 
 register("chat", (drop, magicFind) => {
     if (!Configuration.autoRareDrops) return;
-    ChatLib.say(ChatLib.removeFormatting(`CRAZY RARE DROP! ${drop} ${magicFind}`))
+    if (cd.rareDrops3) setTimeout(() => {
+        ChatLib.say(ChatLib.removeFormatting(`CRAZY RARE DROP! ${drop} ${magicFind}`));
+    }, cd.rareDrops3);
+    else if (!cd.rareDrops3) {
+        ChatLib.say(ChatLib.removeFormatting(`CRAZY RARE DROP! ${drop} ${magicFind}`));
+        cd.rareDrops3 = 500;
+        setTimeout(() => {
+            cd.rareDrops3 = false;
+        }, 500);
+    };
 }).setCriteria("CRAZY RARE DROP! ${drop} ${magicFind}").setExact();
 
 register("chat", (drop, magicFind) => {
     if (!Configuration.autoRareDrops) return;
-    ChatLib.say(ChatLib.removeFormatting(`INSANE RARE DROP! ${drop} ${magicFind}`))
+    if (cd.rareDrops4) setTimeout(() => {
+        ChatLib.say(ChatLib.removeFormatting(`INSANE RARE DROP! ${drop} ${magicFind}`));
+    }, cd.rareDrops4);
+    else if (!cd.rareDrops4) {
+        ChatLib.say(ChatLib.removeFormatting(`INSANE RARE DROP! ${drop} ${magicFind}`));
+        cd.rareDrops4 = 500;
+        setTimeout(() => {
+            cd.rareDrops4 = false;
+        }, 500);
+    };
 }).setCriteria("INSANE RARE DROP! ${drop} ${magicFind}").setExact();
 
 // register("command", (args) => {

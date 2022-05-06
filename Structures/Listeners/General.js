@@ -204,7 +204,7 @@ register("tick", () => {
     try {
         const scoreboardLine = Scoreboard.getLines()?.length < 2 ? false : Scoreboard.getLineByIndex(2) ? ChatLib.removeFormatting(Scoreboard.getLineByIndex(2)) : false;
     if (scoreboardLine) {
-        if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) slayer.spawned = true, slayer.spawnedAt = Date.now(), ChatLib.chat("Slayer Spawned!");
+        if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) slayer.spawned = true, slayer.spawnedAt = Date.now();
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
             let lastUpdated = Math.round((Date.now() - slayer.spawnedAt) / 1000);
             slayer.spawned = false;
