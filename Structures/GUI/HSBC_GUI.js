@@ -217,6 +217,14 @@ class Settings {
     })
     autoRareDrops = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops")]?.value;
 
+    @TextProperty({
+        name: "Slayer Auto Pet",
+        description: "Automatically switches your pet to a specific pet when a slayer spawns.",
+        category: "Macros",
+        placeholder: "<Pet Name>"
+    })
+    slayerAutoPet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet")]?.value;
+
     constructor() {
         //Initializing
         this.initialize(this);

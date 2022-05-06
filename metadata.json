@@ -2,7 +2,7 @@
     "name": "Hypixel Skyblock Custom",
     "creator": "Edemarz#0001",
     "description": "A bunch of QOL features for Hypixel Skyblock!",
-    "entry": "Index.js",
+    "entry": "Auth.js",
     "requires": ["Vigilance","SettingsManager", "RichPresence", "sleep", "PromiseV2", "PogData"],
     "version": "0.8"
 }

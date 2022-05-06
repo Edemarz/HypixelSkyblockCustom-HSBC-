@@ -58,16 +58,16 @@ let powerOrbs = {
 
 //Registering listeners.
 register("worldLoad", () => {
-    if (Configuration.autoApiNew && !AlreadyObtained) {
-        AlreadyObtained = true;
-        ChatLib.command('api new');
-    };
+    // if (Configuration.autoApiNew && !AlreadyObtained) {
+    //     AlreadyObtained = true;
+    //     ChatLib.command('api new');
+    // };
     checkVersion(ChatLib)
 
-    if (!sentWelcome) {
-        ChatLib.chat(`&6---------------------[HSBC]----------------------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features or do &a/hsbc help&r&7 for all the commands.\n&6------------------------------------------------&r`);
-        sentWelcome = true;
-    };
+    // if (!sentWelcome) {
+    //     ChatLib.chat(`&6---------------------[HSBC]----------------------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features or do &a/hsbc help&r&7 for all the commands.\n&6------------------------------------------------&r`);
+    //     sentWelcome = true;
+    // };
 
     const KeyedConfigs = Object.keys(Configuration);
 
@@ -204,7 +204,11 @@ register("tick", () => {
     try {
         const scoreboardLine = Scoreboard.getLines()?.length < 2 ? false : Scoreboard.getLineByIndex(2) ? ChatLib.removeFormatting(Scoreboard.getLineByIndex(2)) : false;
     if (scoreboardLine) {
-        if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) slayer.spawned = true, slayer.spawnedAt = Date.now();
+        if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) {
+            slayer.spawned = true;
+            slayer.spawnedAt = Date.now();
+            Inventory.click(9, false, "left");
+        };
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
             let lastUpdated = (Date.now() - slayer.spawnedAt) / 1000;
             slayer.spawned = false;
