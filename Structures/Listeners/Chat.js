@@ -55,7 +55,7 @@ register("chat", () => {
 }).setCriteria("Your Mining Speed Boost has expired!").setExact();
 
 register("chat", () => {
-    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 100, 2)
+    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 60, 2)
 }).setCriteria("Your Hitshield have broken! Your Voidling's Stronghold Buff is now active for the next 20 seconds!").setExact();
 
 register("chat", (msg) => {
@@ -84,5 +84,5 @@ register("chat", (drop, magicFind) => {
 }).setCriteria("INSANE RARE DROP! ${drop} ${magicFind}").setExact();
 
 // register("command", (args) => {
-    
+//     checkVersion(ChatLib);
 // }).setName("test");

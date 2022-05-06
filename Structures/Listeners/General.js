@@ -5,6 +5,7 @@ import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
 import { checkLockedBind } from "../Features/LockBind/lockBind";
 import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
+import { checkVersion } from "../Handlers/RequestHandlers";
 let slayer = {
     start: false,
     end: false,
@@ -44,7 +45,8 @@ register("worldLoad", () => {
     if (Configuration.autoApiNew && !AlreadyObtained) {
         AlreadyObtained = true;
         ChatLib.command('api new');
-    };  
+    };
+    checkVersion(ChatLib)
 
     if (!sentWelcome) {
         ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features.\n&6--------------------------&r`);

@@ -2,6 +2,7 @@ import request from "../Modules/request/request";
 import Configuration from "../GUI/HSBC_GUI";
 import { profileColorCodes, bingoColorCodes, rarityColors, potionColors } from "../Constants/ColorCodes";
 import sleep from "../../../sleep/index";
+import { version } from "../../metadata.json";
 
 const headers = {
     "User-Agent": "Mozilla/5.0@HypixelSkyblockCustom"
@@ -264,4 +265,25 @@ function getProfileStats(key, chat, username, profileID, profileString, rUuid) {
     });
 };
 
-export { validateKey, getPlayerUUID, viewProfiles, getProfileStats, getHypixelPlayer, stringify, getPlayerNameFromUUID, numberWithCommas, capitalizeName };
+function checkVersion(chat) {
+    request({
+        url: "https://raw.githubusercontent.com/Edemarz/HypixelSkyblockCustom/main/metadata.json",
+        headers: headers,
+        connectTimeout: 10000
+    }).then((response) => {
+        const version1 = JSON.parse(response["body"])["version"];
+        if (!version1) return chat.chat("&6[HSBC]&r&c HSBC has ran into an error while fetching the latest HSBC's version.");
+        const numberedVersion = parseFloat(version1);
+        const numberedCurrentVersion = parseFloat(version);
+        if (numberedVersion > numberedCurrentVersion) {
+            const msg = new Message(
+                `&6[HSBC]&r&c Your HSBC's mod version is outdated! The current latest version is &l${numberedVersion}&rc your current version is &l${numberedCurrentVersion}&r&c!\n&r&aClick `,
+                new TextComponent('&r&ahere&r').setClick("open_url", 'https://github.com/Edemarz/HypixelSkyblockCustom'),
+                ' &r&ato download the latest version!'
+            );
+            chat.chat(msg);
+        };
+    }).catch((err) => chat.chat(`&6[HSBC]&r&c HSBC has ran into an error while fetching the current HSBC's version: ${JSON.stringify(err)}`));
+};
+
+export { validateKey, getPlayerUUID, viewProfiles, getProfileStats, getHypixelPlayer, stringify, getPlayerNameFromUUID, numberWithCommas, capitalizeName, checkVersion };

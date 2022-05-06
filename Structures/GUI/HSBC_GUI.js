@@ -198,7 +198,7 @@ class Settings {
         description: "Automatically broadcast rare drops.",
         category: "QOL"
     })
-    autoRareDrops = true;
+    autoRareDrops = false;
 
     constructor() {
         //Initializing
@@ -224,4 +224,4 @@ class Settings {
     };
 };
 
-export default new Settings()
+export default new Settings();
