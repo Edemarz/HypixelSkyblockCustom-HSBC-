@@ -2,7 +2,7 @@ import request from "../Modules/request/request";
 import Configuration from "../GUI/HSBC_GUI";
 import { profileColorCodes, bingoColorCodes, rarityColors, potionColors } from "../Constants/ColorCodes";
 import sleep from "../../../sleep/index";
-import { version } from "../../metadata.json";
+import { version } from "../Constants/General";
 
 const headers = {
     "User-Agent": "Mozilla/5.0@HypixelSkyblockCustom"
@@ -277,8 +277,8 @@ function checkVersion(chat) {
         const numberedCurrentVersion = parseFloat(version);
         if (numberedVersion > numberedCurrentVersion) {
             const msg = new Message(
-                `&6[HSBC]&r&c Your HSBC's mod version is outdated! The current latest version is &l${numberedVersion}&rc your current version is &l${numberedCurrentVersion}&r&c!\n&r&aClick `,
-                new TextComponent('&r&ahere&r').setClick("open_url", 'https://github.com/Edemarz/HypixelSkyblockCustom'),
+                `&6[HSBC]&r&c Your HSBC's mod version is outdated! The current latest version is &l${numberedVersion}&r&c your current version is &l${numberedCurrentVersion}&r&c!\n&r&aClick `,
+                new TextComponent('&r&a&lhere&r').setClick("open_url", 'https://github.com/Edemarz/HypixelSkyblockCustom'),
                 ' &r&ato download the latest version!'
             );
             chat.chat(msg);
