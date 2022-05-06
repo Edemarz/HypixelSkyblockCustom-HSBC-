@@ -212,7 +212,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Auto Broadcast Rare Drops",
-        description: "Automatically broadcast rare drops.",
+        description: "Automatically broadcast rare drops.\n&c&lNote: Might get you kicked for spamming.&r",
         category: "QOL"
     })
     autoRareDrops = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops")]?.value;

@@ -206,14 +206,14 @@ register("tick", () => {
     if (scoreboardLine) {
         if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) slayer.spawned = true, slayer.spawnedAt = Date.now();
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
-            let lastUpdated = Math.round((Date.now() - slayer.spawnedAt) / 1000);
+            let lastUpdated = (Date.now() - slayer.spawnedAt) / 1000;
             slayer.spawned = false;
             slayer.spawnedAt = false;
 
-            if (lastUpdated > 86400 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 86400) > 1 ? `${Math.round(lastUpdated / 86400)} days` : `${Math.round(lastUpdated / 86400)} day`;
-            else if (lastUpdated > 3600 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 3600) > 1 ? `${Math.round(lastUpdated / 3600)} hours` : `${Math.round(lastUpdated / 3600)} hour`;
-            else if (lastUpdated > 60 && typeof lastUpdated === 'number') lastUpdated = Math.round(lastUpdated / 60) > 1 ? `${Math.round(lastUpdated / 60)} minutes` : `${Math.round(lastUpdated / 60)} minute`;
-            else lastUpdated = lastUpdated > 1 ? `${lastUpdated} seconds` : `${lastUpdated} second`;
+            if (lastUpdated > 86400 && typeof lastUpdated === 'number') lastUpdated = lastUpdated / 86400 > 1 ? `${(lastUpdated / 86400).toFixed(2)} days` : `${(lastUpdated / 86400).toFixed(2)} day`;
+            else if (lastUpdated > 3600 && typeof lastUpdated === 'number') lastUpdated = lastUpdated / 3600 > 1 ? `${(lastUpdated / 3600).toFixed(2)} hours` : `${(lastUpdated / 3600).toFixed(2)} hour`;
+            else if (lastUpdated > 60 && typeof lastUpdated === 'number') lastUpdated = lastUpdated / 60 > 1 ? `${(lastUpdated / 60).toFixed(2)} minutes` : `${(lastUpdated / 60).toFixed(2)} minute`;
+            else lastUpdated = lastUpdated > 1 ? `${lastUpdated.toFixed(2)} seconds` : `${lastUpdated.toFixed(2)} second`;
 
 
             ChatLib.chat(`&6[HSBC]&r&a Slayer took ${lastUpdated} to kill.`);
