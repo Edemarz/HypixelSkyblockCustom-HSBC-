@@ -65,7 +65,7 @@ register("worldLoad", () => {
     checkVersion(ChatLib)
 
     if (!sentWelcome) {
-        ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features or do &a/hsbc help&r&7 for all the commands.\n&6--------------------------&r`);
+        ChatLib.chat(`&6---------------------[HSBC]----------------------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features or do &a/hsbc help&r&7 for all the commands.\n&6------------------------------------------------&r`);
         sentWelcome = true;
     };
 
