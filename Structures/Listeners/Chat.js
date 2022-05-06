@@ -9,6 +9,9 @@ const pickaxeNames = [
 ];
 import { C08PacketPlayerBlockPlacement, BP } from "../Constants/Packets";
 import { Storage } from "../Handlers/StorageHandler";
+let cd = {
+    rareDrops: false
+};
 
 register("chat", (api_key) => {
     ChatLib.chat(`&6[HSBC]&r&e HSBC has updated your API key configuration to:&r&b ${api_key}`);
@@ -59,7 +62,7 @@ register("chat", () => {
 }).setCriteria("Your Mining Speed Boost has expired!").setExact();
 
 register("chat", () => {
-    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a20 seconds!", 2, 60, 2)
+    Client.showTitle("&cYour Hitshield has broken!", "&r&6Your Voidling's Stronghold Buff is now active for the next &a15 seconds!", 2, 60, 2)
 }).setCriteria("Your Hitshield have broken! Your Voidling's Stronghold Buff is now active for the next 20 seconds!").setExact();
 
 register("chat", (msg) => {
@@ -69,7 +72,7 @@ register("chat", (msg) => {
 
 register("chat", (drop, magicFind) => {
     if (!Configuration.autoRareDrops) return;
-    ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`))
+    ChatLib.say(ChatLib.removeFormatting(`RARE DROP! ${drop} ${magicFind}`));
 }).setCriteria("RARE DROP! ${drop} ${magicFind}").setExact();
 
 register("chat", (drop, magicFind) => {
