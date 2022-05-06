@@ -6,11 +6,9 @@ import { GhostBlock } from "../Manager/KeybindManager";
 import { checkLockedBind } from "../Features/LockBind/lockBind";
 import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
 import { checkVersion } from "../Handlers/RequestHandlers";
-let slayer = {
-    start: false,
-    end: false,
-    last: false
-}
+import { GuiOpenButton, LockBind } from "../Manager/KeybindManager";
+import { changeLockBindStatus } from "../Features/LockBind/changeBindStatus";
+
 let cooldowns = {
     lowHealth: false
 };
@@ -149,6 +147,9 @@ register("dropItem", (event) => {
 });
 
 register("tick", () => {
+    if (GuiOpenButton.isPressed()) GUI.openGUI();
+    if (LockBind.isPressed()) changeLockBindStatus();
+
     const playerHealth = Player.getHP();
     if (playerHealth < 10 && Configuration.lowHealthAlert) {
         if (cooldowns.lowHealth) return;
