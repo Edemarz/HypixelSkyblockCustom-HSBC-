@@ -84,5 +84,4 @@ register("chat", (drop, magicFind) => {
 }).setCriteria("INSANE RARE DROP! ${drop} ${magicFind}").setExact();
 
 // register("command", (args) => {
-//     checkVersion(ChatLib);
 // }).setName("test");

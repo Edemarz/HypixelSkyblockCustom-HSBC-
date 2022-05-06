@@ -8,6 +8,19 @@ import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
 import { checkVersion } from "../Handlers/RequestHandlers";
 import { GuiOpenButton, LockBind } from "../Manager/KeybindManager";
 import { changeLockBindStatus } from "../Features/LockBind/changeBindStatus";
+import { Storage } from "../Handlers/StorageHandler";
+const listOfFunctions = [
+    "getConfig",
+    "openGUI",
+    "registerListener",
+    "registerProperty",
+    "addDependency",
+    "hideProperty",
+    "hidePropertyIf",
+    "setCategoryDescription",
+    "setSubcategoryDescription",
+    "save"
+];
 
 let cooldowns = {
     lowHealth: false
@@ -50,6 +63,33 @@ register("worldLoad", () => {
         ChatLib.chat(`&6----------[HSBC]----------&r\n&7Welcome to&r&6 HSBC&r&7!\n&r&7Do&r&a /hsbc&r&7 for all of&r&6 HSBC&r&7's features.\n&6--------------------------&r`);
         sentWelcome = true;
     };
+
+    const KeyedConfigs = Object.keys(Configuration);
+
+    KeyedConfigs.forEach((config) => {
+        if (listOfFunctions.includes(config)) return;
+        let alreadyExist = false;
+        let index;
+        Storage.settings.forEach((obj) => {
+            if (obj.name?.toLowerCase() === config?.toLowerCase()) alreadyExist = true;
+        });
+        if (alreadyExist) index = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == config?.toLowerCase());
+
+        if (alreadyExist && index && index !== -1) {
+            Storage.settings[index].value = Configuration[config];
+            Storage.save();
+        };
+
+        if (!alreadyExist && (!index || index === -1)) {
+            Storage.settings.push(
+                {
+                    name: config,
+                    value: Configuration[config]
+                }
+            );
+            Storage.save();
+        };
+    });
 });
 
 register("packetReceived", (packet, event) => {
@@ -85,8 +125,14 @@ register("renderCrosshair", (args) => {
     if (!Configuration.renderCrosshair) cancel(args);
 });
 
-register("renderEntity", (args) => {
-    if (!Configuration.renderEntities) cancel(args);
+register("renderEntity", (name, vector, pt, event) => {
+    if (!Configuration.renderPlayers) {
+        if (name.name === "Armor Stand") cancel(event);
+        if (name.name === Player.getName()) return;
+        TabList.getUnformattedNames().forEach((temp) => {
+            if (name.name === temp) cancel(event)
+        });
+    }
 });
 
 register("renderScoreboard", (args) => {
@@ -178,4 +224,33 @@ register("playerInteract", (action, pos, event) => {
         Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(Player.getHeldItemIndex()).getItemStack(), 0, 0, 0));
         cancel(event);
     };
+});
+
+register("gameUnload", () => {
+    const KeyedConfigs = Object.keys(Configuration);
+
+    KeyedConfigs.forEach((config) => {
+        if (listOfFunctions.includes(config)) return;
+        let alreadyExist = false;
+        let index;
+        Storage.settings.forEach((obj) => {
+            if (obj.name?.toLowerCase() === config?.toLowerCase()) alreadyExist = true;
+        });
+        if (alreadyExist) index = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == config?.toLowerCase());
+
+        if (alreadyExist && index && index !== -1) {
+            Storage.settings[index].value = Configuration[config];
+            Storage.save();
+        };
+
+        if (!alreadyExist && (!index || index === -1)) {
+            Storage.settings.push(
+                {
+                    name: config,
+                    value: Configuration[config]
+                }
+            );
+            Storage.save();
+        };
+    });
 });

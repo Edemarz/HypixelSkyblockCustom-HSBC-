@@ -2,7 +2,8 @@ import PogData from "PogData";
 
 const Storage = new PogData("HypixelSkyblockCustom", {
     lockedBinds: [false, false, false, false, false, false, false, false, false],
-    messages: []
+    messages: [],
+    settings: []
 });
 
 export { Storage };

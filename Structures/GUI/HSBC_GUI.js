@@ -10,6 +10,7 @@ import {
     @Vigilant,
     @SliderProperty
 } from "Vigilance";
+import { Storage } from "../Handlers/StorageHandler";
 
 @Vigilant("HSBC", "HSBC", {
     getCategoryComparator: () => (a, b) => {
@@ -25,21 +26,21 @@ class Settings {
         category: "Configuration",
         placeholder: "API Key"
     })
-    apiKey = "";
+    apiKey = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "apikey") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "apikey")]?.value;
 
     @SwitchProperty({
         name: "Advanced Tooltips",
         description: "Show the tooltips of certain mods.",
         category: "Configuration"
     })
-    advancedTooltips = true;
+    advancedTooltips = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "advancedtooltips") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "advancedtooltips")]?.value;
     
     @SwitchProperty({
         name: "Auto API New",
         description: "Automatically obtain a new Hypixel API Key, this feature is to save you from constantly having to do &a/api new&r everytime you reload this mod.\n&c&lNote: You might have to change the API Key configuration on other mods.&r",
         category: "Configuration"
     })
-    autoApiNew = true;
+    autoApiNew = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoapinew") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoapinew")]?.value;
 
     @SwitchProperty({
         name: "Render Vanilla Health Bar",
@@ -47,7 +48,7 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderHealthBar = true;
+    renderHealthBar = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderhealthbar") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderhealthbar")]?.value;
 
     @SwitchProperty({
         name: "Render Vanilla XP Bar",
@@ -55,7 +56,7 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderXPBar = true;
+    renderXPBar = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderxpbar") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderxpbar")]?.value;
 
     @SwitchProperty({
         name: "Render Vanilla Armor Bar",
@@ -63,7 +64,7 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderArmorBar = true;
+    renderArmorBar = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderarmorbar") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderarmorbar")]?.value;
 
     @SwitchProperty({
         name: "Render Vanilla Food Bar",
@@ -71,7 +72,7 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderFoodBar = true;
+    renderFoodBar = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderfoodbar") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderfoodbar")]?.value;
 
     @SwitchProperty({
         name: "Render Crosshair",
@@ -79,15 +80,15 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderCrosshair = true;
+    renderCrosshair = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "rendercrosshair") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "rendercrosshair")]?.value;
 
     @SwitchProperty({
-        name: "Render Entities",
-        description: "Toggle whether or not to render the entities around you.",
+        name: "Render Players",
+        description: "Toggle whether or not to render the players around you.",
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderEntities = true;
+    renderPlayers = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderplayers") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderplayers")]?.value;
 
     @SwitchProperty({
         name: "Render Scoreboard",
@@ -95,21 +96,21 @@ class Settings {
         category: "QOL",
         subcategory: "Rendering"
     })
-    renderScoreboard = true;
+    renderScoreboard = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderscoreboard") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "renderscoreboard")]?.value;
 
     @SwitchProperty({
         name: "Mining Speed Boost Alert",
         description: "Alerts you when your &6Mining Speed Boost&r pickaxe ability can be used again.",
         category: "Alerts"
     })
-    miningSpeedBoostAlert = true;
+    miningSpeedBoostAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "miningspeedboostalert") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "miningspeedboostalert")]?.value;
 
     @SwitchProperty({
         name: "Auto Mining Speed Boost",
         description: "Automatically use your &6Mining Speed Boost&r pickaxe ability when it's available if you're holding your pickaxe.",
         category: "Macros"
     })
-    autoMiningSpeedBoost = false;
+    autoMiningSpeedBoost = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autominingspeedboost") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autominingspeedboost")]?.value;
 
     @SwitchProperty({
         name: "Hide Cooldown Messages",
@@ -117,7 +118,7 @@ class Settings {
         category: "QOL",
         subcategory: "Messages"
     })
-    hideCooldownMessage = false;
+    hideCooldownMessage = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hidecooldownmessage") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hidecooldownmessage")]?.value;
 
     @SwitchProperty({
         name: "Hide Blocks In The Way Messages",
@@ -125,28 +126,28 @@ class Settings {
         category: "QOL",
         subcategory: "Messages"
     })
-    hideBlocksInTheWay = false;
+    hideBlocksInTheWay = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hideblocksintheway") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hideblocksintheway")]?.value;
 
     @SwitchProperty({
         name: "Power Orb Alert",
         description: "Alerts you when your Power Orb (&aRadiant&r, &9Manaflux&r, &5Overflux&r, &6Plasmaflux&r) expire.",
         category: "Alerts"
     })
-    powerOrbAlert = false;
+    powerOrbAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "powerorbalert") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "powerorbalert")]?.value;
 
     @SwitchProperty({
         name: "Anti Knockback",
         description: "Removes the user's knockback",
         category: "Hacks"
     })
-    antiKB = false;
+    antiKB = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "antikb") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "antikb")]?.value;
 
     @SwitchProperty({
         name: "Ghost Block",
         description: "Determines wether or not to enable the &6Ghost Blocks&r feature.",
         category: "Ghost Blocks"
     })
-    stonkGB = false;
+    stonkGB = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgb") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgb")]?.value;
     
     @SelectorProperty({
         name: "Stonk Ghost Block",
@@ -154,7 +155,7 @@ class Settings {
         category: "Ghost Blocks",
         options: ["Right Click", "Left Click"]
     })
-    stonkGBType = 0;
+    stonkGBType = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype") === -1 ? 0 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype")]?.value;
 
     @TextProperty({
         name: "Guild Message Format",
@@ -163,28 +164,28 @@ class Settings {
         subcategory: "Guild",
         placeholder: "Guild Message Format"
     })
-    guildMessageFormat = '&2Guild > {rank} {name} {guildRank}: {message}';
+    guildMessageFormat = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "guildmessageformat") === -1 ? '&2Guild > {rank} {name} {guildRank}: {message}' : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "guildmessageformat")]?.value;
 
     @SwitchProperty({
         name: "No Particles",
         description: "Removes all particles from your game!",
         category: "QOL"
     })
-    noParticle = false;
+    noParticle = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "noparticle") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "noparticle")]?.value;
 
     @SwitchProperty({
         name: "Low Health Alert",
         description: "&rAlerts you when you're low on health or you're health is below 25%!",
         category: "Alerts"
     })
-    lowHealthAlert = true;
+    lowHealthAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "lowhealthalert") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "lowhealthalert")]?.value;
 
     @SwitchProperty({
         name: "Better Shortbow",
         description: "Removes the bow pullback from bows that have the Shortbow ability such as &cTerminator&r and &6Juju Bow&r.",
         category: "SkySim"
     })
-    betterShortbow = true;
+    betterShortbow = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "bettershortbow") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "bettershortbow")]?.value;
 
     @TextProperty({
         name: "Player Tablist Name",
@@ -192,7 +193,7 @@ class Settings {
         category: "Miscellanious",
         placeholder: `${Player.getName()}`
     })
-    tabName = `${Player.getName()}`;
+    tabName = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "tabname") === -1 ? `${Player.getName()}` : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "tabname")]?.value;
 
     @TextProperty({
         name: "Player Nametag",
@@ -200,21 +201,21 @@ class Settings {
         category: "Miscellanious",
         placeholder: `${Player.getName()}`
     })
-    playerNametag = `${Player.getName()}`;
+    playerNametag = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "playernametag") === -1 ? `${Player.getName()}` : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "playernametag")]?.value;
 
     @SwitchProperty({
         name: "Voidgloom's Stronghold Alert",
         description: "Alerts you when your Voidgloom's Stronghold Hitshield has broken!",
         category: "SkySim"
     })
-    strongholdAlert = true;
+    strongholdAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "strongholdalert") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "strongholdalert")]?.value;
 
     @SwitchProperty({
         name: "Auto Broadcast Rare Drops",
         description: "Automatically broadcast rare drops.",
         category: "QOL"
     })
-    autoRareDrops = false;
+    autoRareDrops = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops")]?.value;
 
     constructor() {
         //Initializing
