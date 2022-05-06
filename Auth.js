@@ -13,7 +13,6 @@ request({
     connectTimeout: 10000,
     headers: headers
 }).then((resp) => {
-    console.log(pUuid);
     const whitelisted = JSON.parse(resp["body"])["whitelisted"];
     if (!whitelisted) return ChatLib.chat("&6[HSBC]&r&c You are not whitelisted, therefore you cannot use HSBC.&r&a Please wait for a public release.&r");
     import "./Index";

@@ -3,11 +3,13 @@ import Configuration from "../GUI/HSBC_GUI";
 import { stonkGhostBlockPlayerInteract, stonkGhostBlocksTick } from "../Features/GhostBlock/StonkGhostBlock";
 import { GhostBlocks } from "../Features/GhostBlock/GhostBlock";
 import { GhostBlock } from "../Manager/KeybindManager";
-import { BP, C08PacketPlayerBlockPlacement } from "../Constants/Packets";
+import { BP, C08PacketPlayerBlockPlacement, C09PacketHeldItemChange } from "../Constants/Packets";
 import { checkVersion } from "../Handlers/RequestHandlers";
 import { GuiOpenButton, LockBind } from "../Manager/KeybindManager";
 import { changeLockBindStatus } from "../Features/LockBind/changeBindStatus";
 import { Storage } from "../Handlers/StorageHandler";
+import sleep from "../../../sleep/index";
+let changedPets = false;
 const listOfFunctions = [
     "getConfig",
     "openGUI",
@@ -31,8 +33,8 @@ let cooldowns = {
     lowHealth: false
 };
 //Declaring
-let AlreadyObtained = false;
-let sentWelcome = false;
+// let AlreadyObtained = false;
+// let sentWelcome = false;
 let powerOrbs = {
     radiant: {
         timeout: [],
@@ -202,12 +204,52 @@ register("step", () => {
 
 register("tick", () => {
     try {
-        const scoreboardLine = Scoreboard.getLines()?.length < 2 ? false : Scoreboard.getLineByIndex(2) ? ChatLib.removeFormatting(Scoreboard.getLineByIndex(2)) : false;
+    const scoreboardLine = Scoreboard.getLines()?.length < 2 ? false : Scoreboard.getLineByIndex(2) ? ChatLib.removeFormatting(Scoreboard.getLineByIndex(2)) : false;
     if (scoreboardLine) {
         if (scoreboardLine?.includes("Slay the boss!") && !slayer.spawned && !slayer.spawnedAt) {
             slayer.spawned = true;
             slayer.spawnedAt = Date.now();
-            Inventory.click(9, false, "left");
+
+            if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1 && !changedPets) {
+                let temporaryIndex = Player.getHeldItemIndex();
+                Client.sendPacket(new C09PacketHeldItemChange(8));
+            sleep(250, () => {
+                Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+                    sleep(350, () => {
+                        Player.getOpenedInventory()?.click(30, false, "LEFT");
+                        sleep(350, () => {
+                            Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
+                                Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                            });
+                        });
+                    });
+                });
+            };
+        };
+        if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && !slayer.spawned && !slayer.spawnedAt && !changedPets) {
+            const splittedLine = scoreboardLine?.split(' ')[1];
+            const currentlyAt = Number(splittedLine.split('/')[0]);
+            const spawnAt = Number(splittedLine.split('/')[1]);
+            if (currentlyAt === (spawnAt - 1) || (currentlyAt === spawnAt && !slayer.spawned && !slayer.spawnedAt)) {
+                if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1) {
+                    let temporaryIndex = Player.getHeldItemIndex();
+                    Client.sendPacket(new C09PacketHeldItemChange(8));
+                sleep(250, () => {
+                    Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+                        sleep(350, () => {
+                            Player.getOpenedInventory()?.click(30, false, "LEFT");
+                            sleep(350, () => {
+                                Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
+                                    if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
+                                    Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                });
+                            });
+                        });
+                    });
+                };
+                changedPets = true;
+            };
         };
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
             let lastUpdated = (Date.now() - slayer.spawnedAt) / 1000;
@@ -221,9 +263,27 @@ register("tick", () => {
 
 
             ChatLib.chat(`&6[HSBC]&r&a Slayer took ${lastUpdated} to kill.`);
+
+            if (Configuration.slayerAutoPet2 && Configuration.slayerAutoPet2?.length > 1) {
+            let temporaryIndex = Player.getHeldItemIndex();
+            Client.sendPacket(new C09PacketHeldItemChange(8));
+            sleep(250, () => {
+                Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+                    sleep(350, () => {
+                        Player.getOpenedInventory()?.click(30, false, "LEFT");
+                        sleep(350, () => {
+                            Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet2?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
+                                Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                            });
+                        });
+                    });
+                });
+                changedPets = false;
+            };
         };
     };
-    } catch (err) { ChatLib.chat(`&6[HSBC]&r&c HSBC has ran into an error while calculating slayer kill time: ${JSON.stringify(err)}`); };
+    } catch (err) { console.log(`&6[HSBC]&r&c HSBC has ran into an error while calculating slayer kill time: ${JSON.stringify(err)}`); };
     
     if (GuiOpenButton.isPressed()) GUI.openGUI();
     if (LockBind.isPressed()) changeLockBindStatus();
@@ -241,10 +301,6 @@ register("tick", () => {
 
     Player.setTabDisplayName(new TextComponent(!Configuration.tabName ? 'None' : Configuration.tabName));
     Player.setNametagName(new TextComponent(!Configuration.playerNametag ? 'None' : Configuration.playerNametag));
-});
-
-register("attackEntity", () => {
-    
 });
 
 register("playerInteract", (action, pos, event) => {

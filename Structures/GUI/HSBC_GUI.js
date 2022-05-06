@@ -218,12 +218,27 @@ class Settings {
     autoRareDrops = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops")]?.value;
 
     @TextProperty({
-        name: "Slayer Auto Pet",
-        description: "Automatically switches your pet to a specific pet when a slayer spawns.",
-        category: "Macros",
-        placeholder: "<Pet Name>"
+        name: "Slayer Spawn Auto Pet",
+        description: "Automatically switches your pet to a specific pet when your slayer spawns.",
+        category: "Auto Pet",
+        placeholder: ""
     })
     slayerAutoPet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet")]?.value;
+
+    @TextProperty({
+        name: "Slayer Kill Auto Pet",
+        description: "Automatically switches your pet to a specific pet when your slayer gets killed.",
+        category: "Auto Pet",
+        placeholder: ""
+    })
+    slayerAutoPet2 = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2")]?.value;
+
+    @SwitchProperty({
+        name: "Voidling's Altar Spawn Alert",
+        description: "Alerts you when a &5Voidling's Altar&r has spawned.",
+        category: "Alerts"
+    })
+    voidlingAltarAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert")]?.value;
 
     constructor() {
         //Initializing
@@ -236,6 +251,7 @@ class Settings {
         this.setCategoryDescription("QOL", "The QOL Features of HSBC.");
         this.setCategoryDescription("Miscellaneous", "The miscellaneous features of HSBC.");
         this.setCategoryDescription("Macros", "The macro features of HSBC.");
+        this.setCategoryDescription("Auto Pet", "The auto-pet features of HSBC.");
         this.setCategoryDescription("Hacks", "Features listed under here can get you &c&lbanned&r use at your own risk.");
         this.setCategoryDescription("Alerts", "Features listed under here are alerts such as alerting you when you can use your &6Mining Speed Boost&r again.");
         this.setCategoryDescription("Ghost Blocks", "Features listed under here can create ghost blocks to make it easier to stonk through blocks.");

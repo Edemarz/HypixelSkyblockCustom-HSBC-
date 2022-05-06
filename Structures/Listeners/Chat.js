@@ -93,5 +93,10 @@ register("chat", (drop, magicFind) => {
     ChatLib.say(ChatLib.removeFormatting(`INSANE RARE DROP! ${drop} ${magicFind}`));
 }).setCriteria("INSANE RARE DROP! ${drop} ${magicFind}").setExact();
 
+register("chat", () => {
+    Client.showTitle("&aA &r&5voidling's altar&r&a has spawned!", "", 2, 70, 2);
+    World.playSound("random.orb", 100.0, 0);
+}).setCriteria("A wild Voidling's Altar approached! DO you want to challenge it? SHIFT and walk across the altar to summon the boss! The Altar will despawn in 30s").setExact();
+
 // register("command", (args) => {
 // }).setName("test");
