@@ -247,6 +247,14 @@ class Settings {
     })
     voidlingAltarAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert")]?.value;
 
+    @TextProperty({
+        name: "Voidling's Altar Spawn Auto Pet",
+        description: "Automatically switches your pet to a specific pet when a &5Voidling's Altar&r spawns.",
+        category: "Auto Pet",
+        placeholder: "<Pet Name>"
+    })
+    voidlingAltarAutopet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltarautopet") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltarautopet")]?.value;
+
     constructor() {
         //Initializing
         this.initialize(this);

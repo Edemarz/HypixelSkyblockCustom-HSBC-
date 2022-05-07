@@ -96,7 +96,36 @@ register("chat", (drop, magicFind) => {
 register("chat", () => {
     Client.showTitle("&aA &r&5voidling's altar&r&a has spawned!", "", 2, 70, 2);
     World.playSound("random.orb", 100.0, 0);
+   if (Configuration.autoPetMacro && Configuration.voidlingAltarAutopet && Configuration.voidlingAltarAutopet?.length > 1) {
+    ChatLib.command('sbmenu');
+    sleep(350, () => {
+        Player.getOpenedInventory()?.click(30, false, "MIDDLE");
+        sleep(350, () => {
+            Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
+                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.voidlingAltarAutopet?.toLowerCase())) {
+                    let isAlreadySpawned = false;
+                    const indexes = Object.keys(item?.getLore());
+                    if (indexes.length >= 1) indexes.forEach((ind) => {
+                        if (item?.getLore()[ind]?.includes("Click to despawn")) isAlreadySpawned = true;
+                    });
+                    if (isAlreadySpawned) {
+                        ChatLib.chat(`&6[HSBC]&r&a Your &r&6${item?.getLore()[0]}&r&a is already equipped!`);
+                        Player.getOpenedInventory()?.click(49, false, "MIDDLE");
+                        return;
+                    };
+                    Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                    // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                };
+            });
+        });
+    });
+   };
 }).setCriteria("A wild Voidling's Altar approached! DO you want to challenge it? SHIFT and walk across the altar to summon the boss! The Altar will despawn in 30s").setExact();
 
-// register("command", (args) => {
-// }).setName("test");
+register("chat", (event) => {
+    cancel(event);
+}).setCriteria("<none>").setExact();
+
+register("command", (args) => {
+    Player.getHeldItem()?.setDamage(40000)
+}).setName("test");

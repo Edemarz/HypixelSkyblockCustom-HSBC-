@@ -29,6 +29,8 @@ let slayer = {
     spawnedAt: false
 };
 
+let switchingPets = false;
+
 let cooldowns = {
     lowHealth: false
 };
