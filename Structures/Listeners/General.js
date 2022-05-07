@@ -239,7 +239,7 @@ register("tick", () => {
                     // Client.sendPacket(new C09PacketHeldItemChange(8));
                 // sleep(250, () => {
                     // Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
-                    ChatLib.chat('sbmenu');
+                    ChatLib.command('sbmenu');
                         sleep(350, () => {
                             Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                             sleep(350, () => {
