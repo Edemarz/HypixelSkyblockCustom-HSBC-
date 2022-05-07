@@ -220,9 +220,20 @@ register("tick", () => {
                         Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                         sleep(350, () => {
                             Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                ChatLib.chat(JSON.stringify(item?.getLore()));
-                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
-                                // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) {
+                                    let isAlreadySpawned = false;
+                                    const indexes = Object.keys(item?.getLore());
+                                    if (indexes.length >= 1) indexes.forEach((ind) => {
+                                        if (item?.getLore()[ind]?.includes("Click to despawn")) isAlreadySpawned = true;
+                                    });
+                                    if (isAlreadySpawned) {
+                                        ChatLib.chat(`&6[HSBC]&r&a Your &r&6${item?.getLore()[0]}&r&a is already equipped!`);
+                                        Player.getOpenedInventory()?.click(49, false, "MIDDLE");
+                                        return;
+                                    };
+                                    Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                    // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                }
                             });
                         });
                     });
@@ -244,8 +255,20 @@ register("tick", () => {
                             Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                             sleep(350, () => {
                                 Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                    if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                    if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) {
+                                        let isAlreadySpawned = false;
+                                        const indexes = Object.keys(item?.getLore());
+                                        if (indexes.length >= 1) indexes.forEach((ind) => {
+                                            if (item?.getLore()[ind]?.includes("Click to despawn")) isAlreadySpawned = true;
+                                        });
+                                        if (isAlreadySpawned) {
+                                            ChatLib.chat(`&6[HSBC]&r&a Your &r&6${item?.getLore()[0]}&r&a is already equipped!`);
+                                            Player.getOpenedInventory()?.click(49, false, "MIDDLE");
+                                            return;
+                                        }
+                                        Player.getOpenedInventory()?.click(i, false, "MIDDLE");
                                     // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                    }
                                 });
                             });
                         });
@@ -277,8 +300,20 @@ register("tick", () => {
                         Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                         sleep(350, () => {
                             Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet2?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
-                                // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet2?.toLowerCase())) {
+                                    let isAlreadySpawned = false;
+                                    const indexes = Object.keys(item?.getLore());
+                                    if (indexes.length >= 1) indexes.forEach((ind) => {
+                                        if (item?.getLore()[ind]?.includes("Click to despawn")) isAlreadySpawned = true;
+                                    });
+                                    if (isAlreadySpawned) {
+                                        ChatLib.chat(`&6[HSBC]&r&a Your &r&6${item?.getLore()[0]}&r&a is already equipped!`);
+                                        Player.getOpenedInventory()?.click(49, false, "MIDDLE");
+                                        return;
+                                    };
+                                    Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                    // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                };
                             });
                         });
                     });

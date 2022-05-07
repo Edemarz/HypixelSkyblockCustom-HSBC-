@@ -4,5 +4,5 @@
     "description": "A bunch of QOL features for Hypixel Skyblock!",
     "entry": "Auth.js",
     "requires": ["Vigilance","SettingsManager", "RichPresence", "sleep", "PromiseV2", "PogData"],
-    "version": "0.10"
+    "version": "0.11"
 }
