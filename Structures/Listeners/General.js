@@ -243,6 +243,9 @@ register("tick", () => {
                     });
                 // });
             };
+
+            // if (Configuration.autoRogueSword && Configuration.autoRogueTrigger?.toString() == "0") {
+            // };
         };
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && !slayer.spawned && !slayer.spawnedAt && !changedPets) {
             const splittedLine = scoreboardLine?.split(' ')[1];

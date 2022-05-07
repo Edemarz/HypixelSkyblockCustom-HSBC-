@@ -257,13 +257,22 @@ class Settings {
 
     @SliderProperty({
         name: "Auto Rogue Sword Clicks",
-        description: "Determines how much clicks will be used in Auto Rogue Sword.",
+        description: "Determines how many times Auto Rogue Sword will click.",
         category: "Macros",
         subcategory: "Rogue Sword",
         min: 1,
         max: 100
     })
     autoRogueSwordClicks = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks") === -1 ? 5 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks")]?.value;
+    
+    @SelectorProperty({
+        name: "Trigger Auto Rogue Sword When",
+        description: "Determines when auto rogue sword will be triggered.",
+        category: "Macros",
+        subcategory: "Rogue Sword",
+        options: ["A Slayer Spawns", "Your speed is below 200"]
+    })
+    autoRogueTrigger = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguetrigger") === -1 ? 0 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguetrigger")]?.value;
 
     constructor() {
         //Initializing
