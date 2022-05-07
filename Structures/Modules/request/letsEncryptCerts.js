@@ -1,4 +1,4 @@
-// Semisol was here
+// Edemarz was here
 let certificates = [
     "ISRGRootX1.cer"
 ] // Certificate names

@@ -217,11 +217,18 @@ class Settings {
     })
     autoRareDrops = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoraredrops")]?.value;
 
+    @SwitchProperty({
+        name: "Autopet",
+        description: "Toggles whether autopet should be disabled or enabled.",
+        category: "Auto Pet"
+    })
+    autoPetMacro = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autopetmacro") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autopetmacro")]?.value;
+
     @TextProperty({
         name: "Slayer Spawn Auto Pet",
         description: "Automatically switches your pet to a specific pet when your slayer spawns.",
         category: "Auto Pet",
-        placeholder: ""
+        placeholder: "<Pet Name>"
     })
     slayerAutoPet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet")]?.value;
 
@@ -229,7 +236,7 @@ class Settings {
         name: "Slayer Kill Auto Pet",
         description: "Automatically switches your pet to a specific pet when your slayer gets killed.",
         category: "Auto Pet",
-        placeholder: ""
+        placeholder: "<Pet Name>"
     })
     slayerAutoPet2 = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2")]?.value;
 

@@ -210,43 +210,46 @@ register("tick", () => {
             slayer.spawned = true;
             slayer.spawnedAt = Date.now();
 
-            if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1 && !changedPets) {
-                let temporaryIndex = Player.getHeldItemIndex();
-                Client.sendPacket(new C09PacketHeldItemChange(8));
-            sleep(250, () => {
-                Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+            if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1 && !changedPets && Configuration.autoPetMacro) {
+                // let temporaryIndex = Player.getHeldItemIndex();
+                // Client.sendPacket(new C09PacketHeldItemChange(8));
+            // sleep(250, () => {
+            //     Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+            ChatLib.command('sbmenu');
                     sleep(350, () => {
-                        Player.getOpenedInventory()?.click(30, false, "LEFT");
+                        Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                         sleep(350, () => {
                             Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
-                                Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                ChatLib.chat(JSON.stringify(item?.getLore()));
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
                             });
                         });
                     });
-                });
+                // });
             };
         };
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && !slayer.spawned && !slayer.spawnedAt && !changedPets) {
             const splittedLine = scoreboardLine?.split(' ')[1];
             const currentlyAt = Number(splittedLine.split('/')[0]);
             const spawnAt = Number(splittedLine.split('/')[1]);
-            if (currentlyAt === (spawnAt - 1) || (currentlyAt === spawnAt && !slayer.spawned && !slayer.spawnedAt)) {
-                if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1) {
-                    let temporaryIndex = Player.getHeldItemIndex();
-                    Client.sendPacket(new C09PacketHeldItemChange(8));
-                sleep(250, () => {
-                    Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+            if ((currentlyAt === (spawnAt - 1) || currentlyAt === spawnAt) && !slayer.spawned && !slayer.spawnedAt) {
+                if (Configuration.slayerAutoPet && Configuration.slayerAutoPet?.length > 1 && Configuration.autoPetMacro) {
+                    // let temporaryIndex = Player.getHeldItemIndex();
+                    // Client.sendPacket(new C09PacketHeldItemChange(8));
+                // sleep(250, () => {
+                    // Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+                    ChatLib.chat('sbmenu');
                         sleep(350, () => {
-                            Player.getOpenedInventory()?.click(30, false, "LEFT");
+                            Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                             sleep(350, () => {
                                 Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                    if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
-                                    Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                    if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                    // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
                                 });
                             });
                         });
-                    });
+                    // });
                 };
                 changedPets = true;
             };
@@ -264,21 +267,22 @@ register("tick", () => {
 
             ChatLib.chat(`&6[HSBC]&r&a Slayer took ${lastUpdated} to kill.`);
 
-            if (Configuration.slayerAutoPet2 && Configuration.slayerAutoPet2?.length > 1) {
-            let temporaryIndex = Player.getHeldItemIndex();
-            Client.sendPacket(new C09PacketHeldItemChange(8));
-            sleep(250, () => {
-                Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+            if (Configuration.slayerAutoPet2 && Configuration.slayerAutoPet2?.length > 1 && Configuration.autoPetMacro) {
+            // let temporaryIndex = Player.getHeldItemIndex();
+            // Client.sendPacket(new C09PacketHeldItemChange(8));
+            // sleep(250, () => {
+                // Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(8).getItemStack(), 0, 0, 0));
+                ChatLib.command('sbmenu');
                     sleep(350, () => {
-                        Player.getOpenedInventory()?.click(30, false, "LEFT");
+                        Player.getOpenedInventory()?.click(30, false, "MIDDLE");
                         sleep(350, () => {
                             Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet2?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "LEFT");
-                                Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
+                                if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.slayerAutoPet2?.toLowerCase())) Player.getOpenedInventory()?.click(i, false, "MIDDLE");
+                                // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
                             });
                         });
                     });
-                });
+                // });
                 changedPets = false;
             };
         };
