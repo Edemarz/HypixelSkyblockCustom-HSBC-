@@ -9,6 +9,7 @@ import { GuiOpenButton, LockBind } from "../Manager/KeybindManager";
 import { changeLockBindStatus } from "../Features/LockBind/changeBindStatus";
 import { Storage } from "../Handlers/StorageHandler";
 import sleep from "../../../sleep/index";
+import GUI from "../GUI/HSBC_GUI";
 let changedPets = false;
 const listOfFunctions = [
     "getConfig",
@@ -73,6 +74,7 @@ register("worldLoad", () => {
     //     sentWelcome = true;
     // };
 
+    //Autosave Setting
     const KeyedConfigs = Object.keys(Configuration);
 
     KeyedConfigs.forEach((config) => {

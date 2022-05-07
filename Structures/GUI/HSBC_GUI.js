@@ -14,7 +14,7 @@ import { Storage } from "../Handlers/StorageHandler";
 
 @Vigilant("HypixelSkyblockCustom", "HypixelSkyblockCustom", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "QOL"];
+        const categories = ["General", "QOL", "Dwarven Mines", "Miscellanious", "Configuration", "Macros", "Auto Pet", "Hacks", "Alerts", "Ghost Blocks", "Chat Formatting", "SkySim"];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }
 })
@@ -155,7 +155,7 @@ class Settings {
         category: "Ghost Blocks",
         options: ["Right Click", "Left Click"]
     })
-    stonkGBType = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype") === -1 ? 0 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype")]?.value;
+    stonkGBType = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype") === -1 ? 1 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "stonkgbtype")]?.value;
 
     @TextProperty({
         name: "Guild Message Format",
@@ -230,7 +230,7 @@ class Settings {
         category: "Auto Pet",
         placeholder: "<Pet Name>"
     })
-    slayerAutoPet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet")]?.value;
+    slayerAutoPet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet") === -1 ? "<Pet Name>" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet")]?.value;
 
     @TextProperty({
         name: "Slayer Kill Auto Pet",
@@ -238,7 +238,7 @@ class Settings {
         category: "Auto Pet",
         placeholder: "<Pet Name>"
     })
-    slayerAutoPet2 = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2") === -1 ? "" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2")]?.value;
+    slayerAutoPet2 = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2") === -1 ? "<Pet Name>" : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "slayerautopet2")]?.value;
 
     @SwitchProperty({
         name: "Voidling's Altar Spawn Alert",
@@ -247,13 +247,23 @@ class Settings {
     })
     voidlingAltarAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert")]?.value;
 
-    @TextProperty({
-        name: "Voidling's Altar Spawn Auto Pet",
-        description: "Automatically switches your pet to a specific pet when a &5Voidling's Altar&r spawns.",
-        category: "Auto Pet",
-        placeholder: "<Pet Name>"
+    @SwitchProperty({
+        name: "Auto Rogue Sword",
+        description: "Automatically uses your rogue sword when under a specific speed",
+        category: "Macros",
+        subcategory: "Rogue Sword"
     })
-    voidlingAltarAutopet = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltarautopet") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltarautopet")]?.value;
+    autoRogueSword = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguesword") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguesword")]?.value;
+
+    @SliderProperty({
+        name: "Auto Rogue Sword Clicks",
+        description: "Determines how much clicks will be used in Auto Rogue Sword.",
+        category: "Macros",
+        subcategory: "Rogue Sword",
+        min: 1,
+        max: 100
+    })
+    autoRogueSwordClicks = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks") === -1 ? 5 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks")]?.value;
 
     constructor() {
         //Initializing
@@ -261,7 +271,6 @@ class Settings {
         //Setting categories
         this.setCategoryDescription("General", "The general features of HSBC.");
         this.setCategoryDescription("Dwarven Mines", "Features related to the Dwarven Mines will be listed here.");
-        this.setCategoryDescription("Miscellanious", "The miscellanious features of HSBC.");
         this.setCategoryDescription("Configuration", "The configuration of HSBC.");
         this.setCategoryDescription("QOL", "The QOL Features of HSBC.");
         this.setCategoryDescription("Miscellaneous", "The miscellaneous features of HSBC.");
@@ -271,12 +280,13 @@ class Settings {
         this.setCategoryDescription("Alerts", "Features listed under here are alerts such as alerting you when you can use your &6Mining Speed Boost&r again.");
         this.setCategoryDescription("Ghost Blocks", "Features listed under here can create ghost blocks to make it easier to stonk through blocks.");
         this.setCategoryDescription("Chat Formatting", "Change how specific messages is formatted.");
-        this.setCategoryDescription("SkySim", "A special subcategory where features for the server &6SkySim&r is listed.")
+        this.setCategoryDescription("SkySim", "A special subcategory where features for the server &6SkySim&r is listed.");
         //Setting subcategories
         this.setSubcategoryDescription("QOL", "Rendering", "");
         this.setSubcategoryDescription("QOL", "Inventory", "");
         this.setSubcategoryDescription("QOL", "Messages", "");
         this.setSubcategoryDescription("Chat Formatting", "Guild", "");
+        this.setSubcategoryDescription("Macros", "Rogue Sword", "");
     };
 };
 
