@@ -246,33 +246,13 @@ class Settings {
         category: "Alerts"
     })
     voidlingAltarAlert = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "voidlingaltaralert")]?.value;
-
-    @SwitchProperty({
-        name: "Auto Rogue Sword",
-        description: "Automatically uses your rogue sword when under a specific speed",
-        category: "Macros",
-        subcategory: "Rogue Sword"
-    })
-    autoRogueSword = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguesword") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguesword")]?.value;
-
-    @SliderProperty({
-        name: "Auto Rogue Sword Clicks",
-        description: "Determines how many times Auto Rogue Sword will click.",
-        category: "Macros",
-        subcategory: "Rogue Sword",
-        min: 1,
-        max: 100
-    })
-    autoRogueSwordClicks = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks") === -1 ? 5 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autorogueswordclicks")]?.value;
     
-    @SelectorProperty({
-        name: "Trigger Auto Rogue Sword When",
-        description: "Determines when auto rogue sword will be triggered.",
-        category: "Macros",
-        subcategory: "Rogue Sword",
-        options: ["A Slayer Spawns", "Your speed is below 200"]
+    @SwitchProperty({
+        name: "Automatically Open Maddox Batphone",
+        description: "Automatically opens maddox batphone when a success message is received from the maddox batphone.",
+        category: "QOL"
     })
-    autoRogueTrigger = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguetrigger") === -1 ? 0 : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoroguetrigger")]?.value;
+    autoMaddox = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "automaddox") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "automaddox")]?.value;
 
     constructor() {
         //Initializing
@@ -295,7 +275,7 @@ class Settings {
         this.setSubcategoryDescription("QOL", "Inventory", "");
         this.setSubcategoryDescription("QOL", "Messages", "");
         this.setSubcategoryDescription("Chat Formatting", "Guild", "");
-        this.setSubcategoryDescription("Macros", "Rogue Sword", "");
+        // this.setSubcategoryDescription("Macros", "Rogue Sword", "");
     };
 };
 

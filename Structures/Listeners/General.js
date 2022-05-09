@@ -10,6 +10,7 @@ import { changeLockBindStatus } from "../Features/LockBind/changeBindStatus";
 import { Storage } from "../Handlers/StorageHandler";
 import sleep from "../../../sleep/index";
 import GUI from "../GUI/HSBC_GUI";
+let rogueDone = false;
 let changedPets = false;
 const listOfFunctions = [
     "getConfig",
@@ -239,14 +240,26 @@ register("tick", () => {
                                     // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
                                 }
                             });
+                            // sleep(1000, () => {
+                            //     if (Configuration.autoRogueSword && Configuration.autoRogueTrigger?.toString() == "0" && !rogueDone) {
+                            //         for (let j = 0; j < 9; j++) {
+                            //             if (Player.getInventory()?.getStackInSlot(j) !== null && Player.getInventory()?.getStackInSlot(j)?.getName()?.removeFormatting()?.toLowerCase()?.includes("rogue")) {
+                            //                 Client.sendPacket(new C09PacketHeldItemChange(j));
+                            //                 for (let i = 0; i < Configuration.autoRogueSwordClicks; i++) {
+                            //                     Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, Player.getInventory().getStackInSlot(j).getItemStack(), 0, 0, 0));
+                            //                     ChatLib.chat("Rogue Sword Clicked");
+                            //                 };
+                            //             };
+                            //         };
+                            //         rogueDone = true;
+                            //     };
+                            // });
                         });
                     });
                 // });
             };
-
-            // if (Configuration.autoRogueSword && Configuration.autoRogueTrigger?.toString() == "0") {
-            // };
         };
+
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && !slayer.spawned && !slayer.spawnedAt && !changedPets) {
             const splittedLine = scoreboardLine?.split(' ')[1];
             const currentlyAt = Number(splittedLine.split('/')[0]);
@@ -296,6 +309,7 @@ register("tick", () => {
 
 
             ChatLib.chat(`&6[HSBC]&r&a Slayer took ${lastUpdated} to kill.`);
+            rogueDone = false;
 
             if (Configuration.slayerAutoPet2 && Configuration.slayerAutoPet2?.length > 1 && Configuration.autoPetMacro) {
             // let temporaryIndex = Player.getHeldItemIndex();

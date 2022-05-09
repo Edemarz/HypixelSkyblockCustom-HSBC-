@@ -9,12 +9,15 @@ const pickaxeNames = [
 ];
 import { C08PacketPlayerBlockPlacement, BP } from "../Constants/Packets";
 import { Storage } from "../Handlers/StorageHandler";
-let cd = {
-    rareDrops1: false,
-    rareDrops2: false,
-    rareDrops3: false,
-    rareDrops4: false
-};
+
+const maddoxAnswers = [
+    "✆ Hello? [OPEN MENU]",
+    "✆ Someone answers! [OPEN MENU]",
+    "✆ How does a lobster answer? Shello! [OPEN MENU]",
+    "✆ Hey what do you need? [OPEN MENU]",
+    "✆ You hear the line pick up... [OPEN MENU]",
+    "✆ You again? What do you want this time? [OPEN MENU]"
+];
 
 register("chat", (api_key) => {
     ChatLib.chat(`&6[HSBC]&r&e HSBC has updated your API key configuration to:&r&b ${api_key}`);
@@ -96,36 +99,11 @@ register("chat", (drop, magicFind) => {
 register("chat", () => {
     Client.showTitle("&aA &r&5voidling's altar&r&a has spawned!", "", 2, 70, 2);
     World.playSound("random.orb", 100.0, 0);
-//    if (Configuration.autoPetMacro && Configuration.voidlingAltarAutopet && Configuration.voidlingAltarAutopet?.length > 1) {
-//     ChatLib.command('sbmenu');
-//     sleep(350, () => {
-//         Player.getOpenedInventory()?.click(30, false, "MIDDLE");
-//         sleep(350, () => {
-//             Player.getOpenedInventory()?.getItems()?.forEach((item, i) => {
-//                 if (ChatLib.removeFormatting(item?.getName())?.toLowerCase()?.includes(Configuration.voidlingAltarAutopet?.toLowerCase())) {
-//                     let isAlreadySpawned = false;
-//                     const indexes = Object.keys(item?.getLore());
-//                     if (indexes.length >= 1) indexes.forEach((ind) => {
-//                         if (item?.getLore()[ind]?.includes("Click to despawn")) isAlreadySpawned = true;
-//                     });
-//                     if (isAlreadySpawned) {
-//                         ChatLib.chat(`&6[HSBC]&r&a Your &r&6${item?.getLore()[0]}&r&a is already equipped!`);
-//                         Player.getOpenedInventory()?.click(49, false, "MIDDLE");
-//                         return;
-//                     };
-//                     Player.getOpenedInventory()?.click(i, false, "MIDDLE");
-//                     // Client.sendPacket(new C09PacketHeldItemChange(temporaryIndex));
-//                 };
-//             });
-//         });
-//     });
-//    };
-}).setCriteria("A wild Voidling's Altar approached! DO you want to challenge it? SHIFT and walk across the altar to summon the boss! The Altar will despawn in 30s").setExact();
+}).setCriteria("A wild Voidling's Altar approached! Do you want to challenge it? SHIFT and walk across the altar to summon the boss! The Altar will despawn in 30s").setExact();
 
 register("chat", (event) => {
     cancel(event);
 }).setCriteria("<none>").setExact();
 
-register("command", (args) => {
-    Player.getHeldItem()?.setDamage(40000)
-}).setName("test");
+// register("command", (args) => {
+// }).setName("test");
