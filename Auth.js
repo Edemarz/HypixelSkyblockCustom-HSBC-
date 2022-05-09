@@ -1,11 +1,5 @@
 import { request } from "./Structures/Modules/request/request";
 import Configuration from "./Structures/GUI/HSBC_GUI";
-const BigInteger = Java.type("java.math.BigInteger")
-const Random = Java.type("java.util.Random")
-const MessageDigest = Java.type("java.security.MessageDigest")
-const RuntimeException = Java.type("java.lang.RuntimeException")
-const JavaString = Java.type("java.lang.String")
-const Minecraft = Java.type('net.minecraft.client.Minecraft');
 const pUuid = Player.getUUID();
 const headers = {
     "User-Agent": "Mozilla/5.0@HypixelSkyblockCustom"

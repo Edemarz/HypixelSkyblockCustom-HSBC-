@@ -144,7 +144,7 @@ register("renderEntity", (name, vector, pt, event) => {
         TabList.getUnformattedNames().forEach((temp) => {
             if (name.name === temp) cancel(event)
         });
-    }
+    };
 });
 
 register("renderScoreboard", (args) => {
@@ -297,6 +297,7 @@ register("tick", () => {
                 changedPets = true;
             };
         };
+        
         if ((scoreboardLine?.includes("Kills") || scoreboardLine?.includes("Combat XP")) && slayer.spawned && slayer.spawnedAt) {
             let lastUpdated = (Date.now() - slayer.spawnedAt) / 1000;
             slayer.spawned = false;

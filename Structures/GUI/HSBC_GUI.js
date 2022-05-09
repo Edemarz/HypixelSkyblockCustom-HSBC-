@@ -14,7 +14,7 @@ import { Storage } from "../Handlers/StorageHandler";
 
 @Vigilant("HypixelSkyblockCustom", "HypixelSkyblockCustom", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "QOL", "Dwarven Mines", "Miscellanious", "Configuration", "Macros", "Auto Pet", "Hacks", "Alerts", "Ghost Blocks", "Chat Formatting", "SkySim"];
+        const categories = ["General", "QOL", "Dwarven Mines", "Miscellanious", "Configuration", "Macros", "Auto Pet", "Hacks", "Alerts", "Ghost Blocks", "Chat", "SkySim"];
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }
 })
@@ -160,7 +160,7 @@ class Settings {
     @TextProperty({
         name: "Guild Message Format",
         description: "Change how guild messages are formatted must have the &a{rank}, {name}, {guildRank}, and {message}&r fields, for example: &2Guild > &r&a[VIP&r&6+&r&a] Edemarz &r&9[Skyblock Sweats]&r&f: I'm a developer! (and a hypixel sb nolife.).",
-        category: "Chat Formatting",
+        category: "Chat",
         subcategory: "Guild",
         placeholder: "Guild Message Format"
     })
@@ -254,6 +254,20 @@ class Settings {
     })
     autoMaddox = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "automaddox") === -1 ? true : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "automaddox")]?.value;
 
+    @SwitchProperty({
+        name: "Hide Bossfight Messages",
+        description: "Hides bossfight messages while you're in the dungeon bossfight.",
+        category: "Dungeons"
+    })
+    hideBfMessage = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hidebfmessage") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "hidebfmessage")]?.value;
+
+    @SwitchProperty({
+        name: "Auto Leave",
+        description: "Automatically leaves the server when it's about to restart.",
+        category: "SkySim"
+    })
+    autoLeave = Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoleave") === -1 ? false : Storage.settings[Storage.settings.findIndex((obj) => obj?.name?.toLowerCase() == "autoleave")]?.value;
+
     constructor() {
         //Initializing
         this.initialize(this);
@@ -268,13 +282,14 @@ class Settings {
         this.setCategoryDescription("Hacks", "Features listed under here can get you &c&lbanned&r use at your own risk.");
         this.setCategoryDescription("Alerts", "Features listed under here are alerts such as alerting you when you can use your &6Mining Speed Boost&r again.");
         this.setCategoryDescription("Ghost Blocks", "Features listed under here can create ghost blocks to make it easier to stonk through blocks.");
-        this.setCategoryDescription("Chat Formatting", "Change how specific messages is formatted.");
-        this.setCategoryDescription("SkySim", "A special subcategory where features for the server &6SkySim&r is listed.");
+        this.setCategoryDescription("Chat", "Change how specific messages is formatted.");
+        this.setCategoryDescription("SkySim", "A special category where features for the server &6SkySim&r is listed.");
+        this.setCategoryDescription("Dungeons", "The HSBC features that are useful/related to dungeons.");
         //Setting subcategories
         this.setSubcategoryDescription("QOL", "Rendering", "");
         this.setSubcategoryDescription("QOL", "Inventory", "");
         this.setSubcategoryDescription("QOL", "Messages", "");
-        this.setSubcategoryDescription("Chat Formatting", "Guild", "");
+        this.setSubcategoryDescription("Chat", "Guild", "");
         // this.setSubcategoryDescription("Macros", "Rogue Sword", "");
     };
 };
